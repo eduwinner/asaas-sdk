@@ -2,3 +2,4 @@
 asaas_webhook.log
 .htaccess
 .phpunit.result.cache
+config.php

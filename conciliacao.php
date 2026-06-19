@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/_bootstrap.php';
 
 use AsaasSDK\AsaasClient;
 use GuzzleHttp\Client as GuzzleClient;
@@ -10,10 +11,10 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 // Bootstrap
 // ---------------------------------------------------------------------------
 
-$apiKey = getenv('ASAAS_API_KEY');
-if (!$apiKey) { http_response_code(500); exit('ASAAS_API_KEY não configurado.'); }
+$apiKey = asaas_config('api_key');
+if (!$apiKey) { http_response_code(500); exit('API key não configurada. Crie config.php no servidor (veja config.example.php).'); }
 
-$sandbox = (bool) getenv('ASAAS_SANDBOX');
+$sandbox = (bool) asaas_config('sandbox', false);
 $factory = new Psr17Factory();
 $asaas   = new AsaasClient(
     apiKey: $apiKey,

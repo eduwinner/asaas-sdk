@@ -36,3 +36,4 @@ jobs:
             CLAUDE.md
             asaas_webhook.log
             .htaccess
+            config.php

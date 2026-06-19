@@ -1,11 +1,12 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/_bootstrap.php';
 
 use AsaasSDK\WebhookHandler;
 
 $handler = new WebhookHandler(
-    authToken: getenv('ASAAS_WEBHOOK_TOKEN') ?: null
+    authToken: asaas_config('webhook_token') ?: null
 );
 
 $handler->handle(function (array $evento) {
