@@ -278,4 +278,28 @@ class AsaasClient
     {
         return $this->call('DELETE', "/bills/$id");
     }
+
+    // -------------------------------------------------------------------------
+    // Financeiro — extrato e saldo (conciliação bancária)
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saldo disponível na conta Asaas.
+     * Retorna: balance, availableForWithdrawal.
+     */
+    public function getBalance(): array
+    {
+        return $this->call('GET', '/finance/balance');
+    }
+
+    /**
+     * Extrato de movimentações financeiras.
+     * Filtros úteis: startDate, finishDate, type (CREDIT|DEBIT).
+     * Cada item contém: id, date, value, balance, type, description,
+     * payment (se vinculado a cobrança) e transferId (se transferência).
+     */
+    public function listFinancialTransactions(array $filters = []): array
+    {
+        return $this->call('GET', '/financialTransactions' . $this->buildQuery($filters));
+    }
 }

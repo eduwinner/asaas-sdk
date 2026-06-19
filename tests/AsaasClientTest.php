@@ -169,6 +169,30 @@ class AsaasClientTest extends TestCase
         }
     }
 
+    public function testGetBalanceReturnsBalance(): void
+    {
+        $client = $this->makeClient(200, ['balance' => 1500.00, 'availableForWithdrawal' => 1200.00]);
+        $result = $client->getBalance();
+
+        $this->assertEquals(1500.00, $result['balance']);
+        $this->assertEquals(1200.00, $result['availableForWithdrawal']);
+    }
+
+    public function testListFinancialTransactionsReturnsList(): void
+    {
+        $client = $this->makeClient(200, [
+            'data' => [
+                ['id' => 'ft_1', 'value' => 100.0,  'type' => 'CREDIT', 'balance' => 1600.0],
+                ['id' => 'ft_2', 'value' => -50.0,  'type' => 'DEBIT',  'balance' => 1550.0],
+            ],
+            'totalCount' => 2,
+        ]);
+        $result = $client->listFinancialTransactions(['startDate' => '2026-06-01', 'finishDate' => '2026-06-30']);
+
+        $this->assertCount(2, $result['data']);
+        $this->assertSame('CREDIT', $result['data'][0]['type']);
+    }
+
     public function testWithApiKeyCreatesNewInstance(): void
     {
         $client    = $this->makeClient(200, ['id' => 'cus_1']);
