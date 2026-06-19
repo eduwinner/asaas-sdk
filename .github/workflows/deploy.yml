@@ -35,3 +35,4 @@ jobs:
             test.php
             CLAUDE.md
             asaas_webhook.log
+            .htaccess
