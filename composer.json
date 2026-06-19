@@ -1,0 +1,23 @@
+{
+  "name": "eduwinner/asaas-sdk",
+  "description": "SDK PHP para integração com o Asaas (incluindo White Label/BaaS)",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "AsaasSDK\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.1",
+    "psr/http-client": "^1.0",
+    "psr/http-message": "^1.0",
+    "psr/http-factory": "^1.0",
+    "php-http/discovery": "^1.15"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}
