@@ -8,7 +8,7 @@ $_cfg = file_exists(__DIR__ . '/config.php')
     ? (require __DIR__ . '/config.php')
     : [];
 
-function asaas_config(string $key, mixed $default = ''): mixed
+function asaas_config(string $key, $default = '')
 {
     global $_cfg;
 
