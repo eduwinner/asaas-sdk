@@ -13,6 +13,7 @@ $handler->handle(function (array $evento) {
     $pagamento = $evento['payment'] ?? [];
 
     match ($tipo) {
+        'PAYMENT_CREATED'           => onPagamentoCriado($pagamento),
         'PAYMENT_RECEIVED'          => onPagamentoRecebido($pagamento),
         'PAYMENT_CONFIRMED'         => onPagamentoConfirmado($pagamento),
         'PAYMENT_OVERDUE'           => onPagamentoVencido($pagamento),
@@ -26,6 +27,12 @@ $handler->handle(function (array $evento) {
 // ---------------------------------------------------------------------------
 // Handlers
 // ---------------------------------------------------------------------------
+
+function onPagamentoCriado(array $p): void
+{
+    logEvento('Pagamento criado', $p);
+    // TODO: registrar cobrança no banco, notificar cliente, etc.
+}
 
 function onPagamentoRecebido(array $p): void
 {
