@@ -4,7 +4,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use AsaasSDK\WebhookHandler;
 
-$handler = new WebhookHandler();
+$handler = new WebhookHandler(
+    authToken: getenv('ASAAS_WEBHOOK_TOKEN') ?: null
+);
 
 $handler->handle(function (array $evento) {
     $tipo     = $evento['event']   ?? 'DESCONHECIDO';
