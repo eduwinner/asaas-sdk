@@ -111,6 +111,54 @@ $assinatura = $asaas->createSubscription([
 
 ---
 
+## Transferências entre Contas
+
+```php
+// Transferir para outra conta Asaas via Wallet ID
+$asaas->transfer([
+    'value'    => 50.00,
+    'walletId' => 'a9b388c9-c16c-409d-900c-e6451c4a17fc',
+]);
+
+// Transferir via PIX (chave externa)
+$asaas->transfer([
+    'value'            => 50.00,
+    'pixAddressKey'    => 'destino@email.com',
+    'pixAddressKeyType'=> 'EMAIL',
+    'description'      => 'Repasse parceiro',
+]);
+
+// Listar transferências
+$lista = $asaas->listTransfers();
+
+// Com filtros
+$lista = $asaas->listTransfers(['dateCreated[ge]' => '2025-01-01']);
+```
+
+---
+
+## Split de Pagamento
+
+Repasse automático no momento da cobrança — basta incluir `split` no payload de `createPayment`:
+
+```php
+$asaas->createPayment([
+    'customer'    => 'cus_000012345678',
+    'billingType' => 'PIX',
+    'value'       => 100.00,
+    'dueDate'     => '2025-12-31',
+    'split'       => [
+        [
+            'walletId'        => 'a9b388c9-c16c-409d-900c-e6451c4a17fc',
+            'fixedValue'      => 10.00, // valor fixo, ou:
+            // 'percentualValue' => 10, // 10%
+        ],
+    ],
+]);
+```
+
+---
+
 ## Notas Fiscais
 
 ```php

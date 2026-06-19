@@ -111,4 +111,15 @@ public function createInvoice(array $data): array
 {
 return $this->call('POST', '/invoices', $data);
 }
+
+public function transfer(array $data): array
+{
+return $this->call('POST', '/transfers', $data);
+}
+
+public function listTransfers(array $filters = []): array
+{
+$query = $filters ? '?' . http_build_query($filters) : '';
+return $this->call('GET', "/transfers$query");
+}
 }
